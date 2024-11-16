@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Foro</title>
+</head>
+<body>
+    <h1>Lista de Posts</h1>
+    <a href="{% url 'nuevo_post' %}">Crear Nuevo Post</a>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'detalle_post' post.pk %}">{{ post.titulo }}</a>
+                <p>{{ post.contenido|truncatechars:100 }}</p>
+                <small>Publicado el: {{ post.fecha_creacion }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
