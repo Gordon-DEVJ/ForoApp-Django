@@ -23,3 +23,6 @@ def nuevo_post(request):
         Post.objects.create(titulo=titulo, contenido=contenido)
         return redirect('lista_posts')
     return render(request, 'foro_app/nuevo_post.html')
+
+def detalle_proyecto(request):
+    return render(request, 'foro_app/detalle_proyecto.html')

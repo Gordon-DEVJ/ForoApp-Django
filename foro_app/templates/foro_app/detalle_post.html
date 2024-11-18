@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">TuForo</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'lista_posts' %}">Inicio</a></li>
+            <li><a href="{% url 'detalle_proyecto' %}">Nosotros</a></li>
+            <li><a href="#contacto">Username</a></li>
+        </ul>
+    </nav>
     <div class="contenedor">
     <h1 class="titulo">{{ post.titulo }}</h1></div>
     <div class="contenedor">

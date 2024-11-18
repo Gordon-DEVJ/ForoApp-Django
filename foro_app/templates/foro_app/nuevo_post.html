@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">TuForo</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'lista_posts' %}">Inicio</a></li>
+            <li><a href="{% url 'detalle_proyecto' %}">Nosotros</a></li>
+            <li><a href="#contacto">Username</a></li>
+        </ul>
+    </nav>
+    <div class="bodyapp">
     <h1 class="titulo">Crear Nuevo Post</h1>
     <div class="contenedor">
     <form method="post">
@@ -18,5 +27,7 @@
     </form>
     </div>
     <a class="btn-main" href="{% url 'lista_posts' %}">Volver a la lista</a>
+    </div>
+    
 </body>
 </html>
