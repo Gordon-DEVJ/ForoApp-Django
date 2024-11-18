@@ -1,17 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Foro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro Django</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Lista de Posts</h1>
-    <a href="{% url 'nuevo_post' %}">Crear Nuevo Post</a>
-    <ul>
+    <h1 class="titulo">Lista de Posts</h1>
+    <a class="btn-main" href="{% url 'nuevo_post' %}">Crear Nuevo Post</a>
+    <ul class="postlist">
         {% for post in posts %}
-            <li>
-                <a href="{% url 'detalle_post' post.pk %}">{{ post.titulo }}</a>
-                <p>{{ post.contenido|truncatechars:100 }}</p>
-                <small>Publicado el: {{ post.fecha_creacion }}</small>
+            <li class="postitem">
+                <a class="titlepost" href="{% url 'detalle_post' post.pk %}">{{ post.titulo }}</a>
+                <p class="contentpost" >{{ post.contenido|truncatechars:100 }}</p>
+                <small class="datepost" >Publicado el: {{ post.fecha_creacion }}</small>
             </li>
         {% endfor %}
     </ul>

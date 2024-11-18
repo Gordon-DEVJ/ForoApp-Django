@@ -1,31 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.titulo }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>{{ post.titulo }}</h1>
-    <p>{{ post.contenido }}</p>
-    <small>Publicado el: {{ post.fecha_creacion }}</small>
-
-    <h2>Comentarios</h2>
-    <ul>
+    <div class="contenedor">
+    <h1 class="titulo">{{ post.titulo }}</h1></div>
+    <div class="contenedor">
+    <p class="contentpost">{{ post.contenido }}</p>
+    <small class="datepost">Publicado el: {{ post.fecha_creacion }}</small></div>
+    <div class="contenedor">
+    <h2 class="titulo2">Comentarios</h2>
+    <ul class="commentlist">
         {% for comentario in post.comentarios.all %}
-            <li>
+            <li class="commentitem">
                 <strong>{{ comentario.autor }}:</strong> {{ comentario.contenido }}
-                <small>{{ comentario.fecha_creacion }}</small>
+                <small class="datepost">{{ comentario.fecha_creacion }}</small>
             </li>
         {% endfor %}
     </ul>
 
-    <h3>Agregar un comentario</h3>
-    <form method="post">
+    <h2 class="titulo2" >Agregar un comentario</h2>
+    <form class="commentform" method="post">
         {% csrf_token %}
-        <input type="text" name="autor" placeholder="Tu nombre" required><br>
-        <textarea name="contenido" placeholder="Escribe tu comentario" required></textarea><br>
-        <button type="submit">Enviar</button>
+        <input class="autorarea" type="text" name="autor" placeholder="Tu nombre" required><br>
+        <textarea class="textarea" name="contenido" placeholder="Escribe tu comentario" required></textarea><br>
+        <button class="btn-main" type="submit">Enviar</button>
     </form>
-
-    <a href="{% url 'lista_posts' %}">Volver a la lista</a>
+    </div>
+    <a class="btn-main" href="{% url 'lista_posts' %}">Volver a la lista</a>
 </body>
 </html>

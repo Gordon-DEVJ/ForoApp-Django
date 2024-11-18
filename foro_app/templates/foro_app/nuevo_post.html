@@ -1,16 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo Post</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Crear Nuevo Post</h1>
+    <h1 class="titulo">Crear Nuevo Post</h1>
+    <div class="contenedor">
     <form method="post">
         {% csrf_token %}
-        <input type="text" name="titulo" placeholder="Título" required><br>
-        <textarea name="contenido" placeholder="Contenido" required></textarea><br>
-        <button type="submit">Publicar</button>
+        <input class="titlearea" type="text" name="titulo" placeholder="Título" required><br>
+        <textarea class="textarea" name="contenido" placeholder="Contenido" required></textarea><br>
+        <button class="btn-main" type="submit">Publicar</button>
     </form>
-    <a href="{% url 'lista_posts' %}">Volver a la lista</a>
+    </div>
+    <a class="btn-main" href="{% url 'lista_posts' %}">Volver a la lista</a>
 </body>
 </html>
