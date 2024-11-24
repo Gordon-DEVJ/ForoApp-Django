@@ -4,6 +4,19 @@
     <title>Iniciar sesión</title>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">TuForo</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'lista_posts' %}">Inicio</a></li>
+            <li><a href="{% url 'detalle_proyecto' %}">Nosotros</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'password_reset' %}">{{ user.username }}</a></li>
+                <li><a href="{% url 'logout_usuario' %}">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="{% url 'login_usuario' %}">Iniciar sesión</a></li>
+            {% endif %}
+    </nav>
+    
     <h1>Iniciar sesión</h1>
     <form method="post">
         {% csrf_token %}
