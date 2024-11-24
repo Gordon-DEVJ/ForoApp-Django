@@ -13,25 +13,34 @@
         <ul class="nav-links">
             <li><a href="{% url 'lista_posts' %}">Inicio</a></li>
             <li><a href="{% url 'detalle_proyecto' %}">Nosotros</a></li>
-            <li><a href="#contacto">Username</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'password_reset' %}">{{ user.username }}</a></li>
+                <li><a href="{% url 'logout_usuario' %}">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="{% url 'login_usuario' %}">Iniciar sesión</a></li>
+            {% endif %}
         </ul>
     </nav>
+
+
     <div class="contenedor">
     <h1 class="titulo">{{ post.titulo }}</h1></div>
     <div class="contenedor">
     <p class="contentpost">{{ post.contenido }}</p>
-    <small class="datepost">Publicado el: {{ post.fecha_creacion }}</small></div>
+    <small>Publicado por: {{ post.author.username }} el {{ post.fecha_creacion }}</small></div>
+    
     <div class="contenedor">
     <h2 class="titulo2">Comentarios</h2>
     <ul class="commentlist">
         {% for comentario in post.comentarios.all %}
             <li class="commentitem">
-                <strong>{{ comentario.autor }}:</strong> {{ comentario.contenido }}
-                <small class="datepost">{{ comentario.fecha_creacion }}</small>
+                <strong>{{ comentario.autor.username }}:</strong> {{ comentario.contenido }}
+                <small>{{ comentario.fecha_creacion }}</small>
             </li>
         {% endfor %}
     </ul>
 
+    {% if user.is_authenticated %}
     <h2 class="titulo2" >Agregar un comentario</h2>
     <form class="commentform" method="post">
         {% csrf_token %}
@@ -39,6 +48,9 @@
         <textarea class="textarea" name="contenido" placeholder="Escribe tu comentario" required></textarea><br>
         <button class="btn-main" type="submit">Enviar</button>
     </form>
+    {% else %}
+        <p>Para agregar un comentario, debes <a href="{% url 'login_usuario' %}">iniciar sesión</a>.</p>
+    {% endif %} <!-- Asegúrate de cerrar este bloque -->
     </div>
     <a class="btn-main" href="{% url 'lista_posts' %}">Volver a la lista</a>
 </body>

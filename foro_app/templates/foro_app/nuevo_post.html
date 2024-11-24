@@ -13,11 +13,17 @@
         <ul class="nav-links">
             <li><a href="{% url 'lista_posts' %}">Inicio</a></li>
             <li><a href="{% url 'detalle_proyecto' %}">Nosotros</a></li>
-            <li><a href="#contacto">Username</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'password_reset' %}">{{ user.username }}</a></li>
+                <li><a href="{% url 'logout_usuario' %}">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="{% url 'login_usuario' %}">Iniciar sesión</a></li>
+            {% endif %}
         </ul>
     </nav>
     <div class="bodyapp">
     <h1 class="titulo">Crear Nuevo Post</h1>
+    {% if user.is_authenticated %}
     <div class="contenedor">
     <form method="post">
         {% csrf_token %}
@@ -25,6 +31,9 @@
         <textarea class="textarea" name="contenido" placeholder="Contenido" required></textarea><br>
         <button class="btn-main" type="submit">Publicar</button>
     </form>
+    {% else %}
+        <p>Para crear un nuevo post, debes <a href="{% url 'login_usuario' %}">iniciar sesión</a>.</p>
+    {% endif %}
     </div>
     <a class="btn-main" href="{% url 'lista_posts' %}">Volver a la lista</a>
     </div>

@@ -13,18 +13,27 @@
         <ul class="nav-links">
             <li><a href="{% url 'lista_posts' %}">Inicio</a></li>
             <li><a href="{% url 'detalle_proyecto' %}">Nosotros</a></li>
-            <li><a href="#contacto">Username</a></li>
-        </ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'password_reset' %}">{{ user.username }}</a></li>
+                <li><a href="{% url 'logout_usuario' %}">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="{% url 'login_usuario' %}">Iniciar sesión</a></li>
+            {% endif %}
     </nav>
+
     <div class="bodyapp">
     <h1 class="titulo">Lista de Posts</h1>
+    {% if user.is_authenticated %}
     <a class="btn-main" href="{% url 'nuevo_post' %}">Crear Nuevo Post</a>
+    {% else %}
+        <p>Para crear un nuevo post, debes <a href="{% url 'login_usuario' %}">iniciar sesión</a>.</p>
+    {% endif %}
     <ul class="postlist">
         {% for post in posts %}
             <li class="postitem">
                 <a class="titlepost" href="{% url 'detalle_post' post.pk %}">{{ post.titulo }}</a>
                 <p class="contentpost" >{{ post.contenido|truncatechars:100 }}</p>
-                <small class="datepost" >Publicado el: {{ post.fecha_creacion }}</small>
+                <small>Publicado por: {{ post.author.username }} el {{ post.fecha_creacion }}</small>
             </li>
         {% endfor %}
     </ul>
